@@ -1,10 +1,11 @@
-const express = require("express");const app = express();
+const express = require("express");
+const app = express();
 
 // Require Cross-Origin Resource Sharing
 const cors = require("cors");
 // Initiate Cross-Origin Resource Sharing
-app.use(express().json);
 app.use(cors());
+app.use(express.json());
 
 // Require Database connection
 const dbConnect = require("./db/dbConnect");
