@@ -30,3 +30,5 @@ app.get("/", (req, res) => {
 const auth = require("./routes/auth");
 // App use Router
 app.use("/auth", auth);
+
+module.exports = app;
