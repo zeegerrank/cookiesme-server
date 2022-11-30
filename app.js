@@ -7,10 +7,10 @@ dbConnect();
 
 // Listen to server port
 port = process.env.PORT || 3030;
-express()
+app
   .listen(port, () => {
-    console.log("✔ Listening on port: ", port);
+    console.log("✔ Listening on port:", port);
   })
   .on("error", (e) => {
-    console.log("Error happened: ", e.message);
+    console.log("Error happened:", e.message);
   });
