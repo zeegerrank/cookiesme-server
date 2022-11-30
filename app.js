@@ -1,4 +1,5 @@
-const express = require("express");const app = express();
+const express = require("express");
+const app = express();
 
 // Require Cross-Origin Resource Sharing
 const cors = require("cors");
@@ -12,14 +13,14 @@ const dbConnect = require("./db/dbConnect");
 dbConnect();
 
 // Listen to server port
-port = process.env.PORT || 3030;
-app
-  .listen(port, () => {
-    console.log("✔ Listening on port:", port);
-  })
-  .on("error", (e) => {
-    console.log("Error happened:", e.message);
-  });
+// port = process.env.PORT || 3030;
+// app
+//   .listen(port, () => {
+//     console.log("✔ Listening on port:", port);
+//   })
+//   .on("error", (e) => {
+//     console.log("Error happened:", e.message);
+//   });
 
 //   Welcome phrase for Deployment
 app.get("/", (req, res) => {
