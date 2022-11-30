@@ -14,3 +14,8 @@ app
   .on("error", (e) => {
     console.log("Error happened:", e.message);
   });
+
+//   Welcome phrase for Deployment
+app.get("/", (req, res) => {
+  res.send("Welcome to the Server Side, Commander");
+});
