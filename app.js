@@ -25,7 +25,7 @@ dbConnect();
 // Require morgan as a logger
 const logger = require("morgan");
 // Initiate logger
-app.use(morgan("combined"));
+app.use(logger("combined"));
 
 //   Welcome phrase for Deployment
 app.get("/", (req, res) => {
