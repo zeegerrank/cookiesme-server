@@ -22,6 +22,11 @@ dbConnect();
 //     console.log("Error happened:", e.message);
 //   });
 
+// Require morgan as a logger
+const logger = require("morgan");
+// Initiate logger
+app.use(morgan("combined"));
+
 //   Welcome phrase for Deployment
 app.get("/", (req, res) => {
   res.send("Welcome to the Server Side, Commander!");
