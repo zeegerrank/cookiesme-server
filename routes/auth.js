@@ -1,4 +1,5 @@
-const express = require("express");const router = express.Router();
+const express = require("express");
+const router = express.Router();
 
 const User = require("../models/User");
 
@@ -37,10 +38,10 @@ router.post("/register", (req, res) => {
         });
     })
     // catch error if the password hash isn't successful
-    .catch((e) => {
+    .catch((error) => {
       res.status(500).send({
         message: "Password was not hashed successfully",
-        e,
+        error,
       });
     });
 });
