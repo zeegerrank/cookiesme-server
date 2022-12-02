@@ -1,13 +1,13 @@
-const express = require("express");
-const router = express.Router();
+const express = require("express");const router = express.Router();
 
 const User = require("../models/User");
 
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { registerValidator } = require("../validators/register.validator");
 
 // Register endpoint
-router.post("/register", (req, res) => {
+router.post("/register", registerValidator, (req, res) => {
   // hash the password
   bcrypt
     .hash(req.body.password, 10)
