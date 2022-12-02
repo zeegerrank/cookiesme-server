@@ -1,5 +1,4 @@
-const express = require("express");
-const router = express.Router();
+const express = require("express");const router = express.Router();
 
 const User = require("../models/User");
 
@@ -94,7 +93,7 @@ router.post("/login", (req, res) => {
     })
     // catch error if email does not exist
     .catch((error) => {
-      res.status(404).send({
+      res.status(400).send({
         message: "Email not found",
         error,
       });
