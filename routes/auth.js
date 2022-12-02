@@ -1,4 +1,5 @@
-const express = require("express");const router = express.Router();
+const express = require("express");
+const router = express.Router();
 
 const User = require("../models/User");
 
@@ -61,8 +62,8 @@ router.post("/login", (req, res) => {
           // check if password matches
           if (!passwordCheck) {
             return res.status(400).send({
-              message: "Passwords does not match 1",
               error,
+              message: "Passwords does not match 1",
             });
           }
 
@@ -86,16 +87,16 @@ router.post("/login", (req, res) => {
         // catch error if password does not match
         .catch((error) => {
           res.status(400).send({
-            message: "Passwords does not match 2",
             error,
+            message: "Passwords does not match 2",
           });
         });
     })
     // catch error if email does not exist
-    .catch((e) => {
+    .catch((error) => {
       res.status(404).send({
         message: "Email not found",
-        e,
+        error,
       });
     });
 });

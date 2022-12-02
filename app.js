@@ -12,16 +12,6 @@ const dbConnect = require("./db/dbConnect");
 // Execute Database Connection
 dbConnect();
 
-// Listen to server port
-// port = process.env.PORT || 3030;
-// app
-//   .listen(port, () => {
-//     console.log("✔ Listening on port:", port);
-//   })
-//   .on("error", (e) => {
-//     console.log("Error happened:", e.message);
-//   });
-
 // Require morgan as a logger
 const logger = require("morgan");
 // Initiate logger
@@ -36,5 +26,15 @@ app.get("/", (req, res) => {
 const auth = require("./routes/auth");
 // App use Router
 app.use("/auth", auth);
+
+// Listen to server port
+// port = process.env.PORT || 3030;
+// app
+//   .listen(port, () => {
+//     console.log("✔ Listening on port:", port);
+//   })
+//   .on("error", (e) => {
+//     console.log("Error happened:", e.message);
+//   });
 
 module.exports = app;
