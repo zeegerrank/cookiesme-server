@@ -61,8 +61,8 @@ router.post("/login", (req, res) => {
           // check if password matches
           if (!passwordCheck) {
             return res.status(400).send({
-              error,
-              message: "Passwords does not match 1",
+              error: 101,
+              message: "Passwords does not match",
             });
           }
 
@@ -86,16 +86,16 @@ router.post("/login", (req, res) => {
         // catch error if password does not match
         .catch((error) => {
           res.status(400).send({
-            error,
-            message: "Passwords does not match 2",
+            error: 102,
+            message: "Passwords does not match",
           });
         });
     })
     // catch error if email does not exist
     .catch((error) => {
-      res.status(400).send({
+      res.status(404).send({
+        error: 103,
         message: "Email not found",
-        error,
       });
     });
 });

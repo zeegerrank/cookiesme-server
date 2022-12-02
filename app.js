@@ -37,4 +37,4 @@ app.use("/auth", auth);
 //     console.log("Error happened:", e.message);
 //   });
 
-module.exports = app;
+// module.exports = app;
