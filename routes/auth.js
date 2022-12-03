@@ -1,5 +1,4 @@
-const express = require("express");
-const router = express.Router();
+const express = require("express");const router = express.Router();
 
 const User = require("../models/User");
 
@@ -10,32 +9,44 @@ const { registerValidator } = require("../validators/RegisterValidator");
 
 // Register endpoint
 router.post("/register", registerValidator, async (req, res) => {
+  // Extract key from request body
   const { email, password } = req.body;
-  console.log(email, password);
 
-  const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(password, salt);
-  console.log(hashedPassword);
-
+  // Check validator detection from request
+  // Which passthrough registerValidator middleware
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).send({ errors: errors.array() });
   }
 
+  // Hash password from request
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+
+  // Contain user info before save execution
   const user = new User({
     email,
     password: hashedPassword,
     createdAt: new Date().toUTCString(),
   });
 
-  console.log(user);
-
-  res.status(200);
-
-  // try {
-  // } catch (error) {
-  //   res.status(400).send(error);
-  // }
+  // save the new user
+  user
+    .save()
+    // return success if the new user is added to the database successfully
+    .then((result) => {
+      res.status(201).send({
+        message: "User Created Successfully",
+        result,
+      });
+    })
+    // catch error if the new user wasn't added successfully to the database
+    .catch((error) => {
+      res.status(500).send({
+        message: "Error creating user",
+        error,
+      });
+    });
 });
 
 // Login endpoint
