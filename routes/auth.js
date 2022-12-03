@@ -1,4 +1,5 @@
-const express = require("express");const router = express.Router();
+const express = require("express");
+const router = express.Router();
 
 const User = require("../models/User");
 
@@ -16,7 +17,7 @@ router.post("/register", registerValidator, async (req, res) => {
   // Which passthrough registerValidator middleware
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).send({ errors: errors.array() });
+    return res.status(400).json({ errors: errors.array() });
   }
 
   // Hash password from request
