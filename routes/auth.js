@@ -5,53 +5,38 @@ const User = require("../models/User");
 
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { body, validationResult } = require("express-validator");
+const { validationResult } = require("express-validator");
+const { registerValidator } = require("../validators/RegisterValidator");
 
 // Register endpoint
-router.post(
-  "/register",
-  body("email").isEmail().normalizeEmail(),
-  async (req, res) => {
-    const { email, password } = req.body;
-    console.log(email, password);
+router.post("/register", registerValidator, async (req, res) => {
+  const { email, password } = req.body;
+  console.log(email, password);
 
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-    console.log(hashedPassword);
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+  console.log(hashedPassword);
 
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).send({ errors: errors.array() });
-    }
-
-    // try {
-    //   if (body("email").isEmpty()) {
-    //     throw Error("No Email");
-    //   }
-    //   if (body("email").isNot().isEmail()) {
-    //     throw Error("Email invalid");
-    //   }
-    // } catch (error) {
-    //   console.error(error);
-    //   return;
-    // }
-
-    const user = new User({
-      email,
-      password: hashedPassword,
-      createdAt: new Date().toUTCString(),
-    });
-
-    console.log(user);
-
-    res.status(200);
-
-    // try {
-    // } catch (error) {
-    //   res.status(400).send(error);
-    // }
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).send({ errors: errors.array() });
   }
-);
+
+  const user = new User({
+    email,
+    password: hashedPassword,
+    createdAt: new Date().toUTCString(),
+  });
+
+  console.log(user);
+
+  res.status(200);
+
+  // try {
+  // } catch (error) {
+  //   res.status(400).send(error);
+  // }
+});
 
 // Login endpoint
 router.post("/login", (req, res) => {

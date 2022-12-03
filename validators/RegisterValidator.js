@@ -1,5 +1,4 @@
-const { body } = require("express-validator");
-module.exports = {
+const { body } = require("express-validator");module.exports = {
   registerValidator: [
     body("email")
       .trim()
@@ -13,15 +12,15 @@ module.exports = {
       .isLength(2)
       .withMessage("Password too short, min 2 character require"),
 
-    body("password2").custom((value, { req }) => {
-      if (value !== req.body.password) {
-        throw new Error("Password do not match");
-      }
-      return true;
-    }),
+    // body("password2").custom((value, { req }) => {
+    //   if (value !== req.body.password) {
+    //     throw new Error("Password do not match");
+    //   }
+    //   return true;
+    // }),
 
     body("password").custom((value, { req }) => {
-      if (!value) {
+      if (!value || value == null || value == undefined) {
         throw new Error("Require Password");
       }
       return true;
