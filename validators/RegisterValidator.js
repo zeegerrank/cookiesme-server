@@ -1,5 +1,8 @@
-const { body } = require("express-validator");module.exports = {
+const { body } = require("express-validator");const User = require("../models/User");
+
+module.exports = {
   registerValidator: [
+    // Check and normalize to valid email
     body("email")
       .trim()
       .isEmail()
@@ -7,6 +10,14 @@ const { body } = require("express-validator");module.exports = {
       .normalizeEmail()
       .toLowerCase(),
 
+    // Check used email
+    body("email").custom((localEmail) => {
+      return User.findOne({ localEmail }).then((usedEmail) => {
+        if (usedEmail) {
+          return Promise.reject("Email is already used");
+        }
+      });
+    }),
     body("password")
       .trim()
       .isLength(2)
